@@ -8,7 +8,7 @@ resource "aws_instance" "east_frontend" {
     volume_type = "gp2"
   }
   tags = {
-    Name = join("-", tolist([var.project-name, "Frontend-East"]))-"${count.index}"
+    Name = local.default_frontend_name
   }
 
   lifecycle { 
@@ -25,7 +25,7 @@ resource "aws_instance" "east_backend" {
     volume_type = "gp2"
   }
   tags = {
-    Name = "${join("-", tolist([var.project-name, "Backend-East"]))}-${count.index}"
+    Name = local.default_backend_name
   }
   lifecycle { 
     prevent_destroy = false
@@ -46,9 +46,7 @@ resource "aws_instance" "west_frontend" {
   root_block_device {
     volume_type = "gp2"
   }
-  tags = {
-    Name = "${join("-", tolist([var.project-name, "Frontend-West"]))}-${count.index}"
-  }
+  tags = local.some_tags 
 
   lifecycle { 
     create_before_destroy = true
@@ -65,7 +63,7 @@ resource "aws_instance" "west_backend" {
     volume_type = "gp2"
   }
   tags = {
-    Name = "${join("-", tolist([var.project-name, "Backend-West"]))}-${count.index}"
+    Name = local.west_backend_name
   }
   lifecycle { 
     prevent_destroy = false
