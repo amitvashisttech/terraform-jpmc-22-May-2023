@@ -6,7 +6,7 @@ apt-get update ; apt-get install default-jdk -y
 
 ## Download Jenkins 
 ```
-wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+wget https://mirrors.jenkins.io/war-stable/latest/jenkins.war
 ```
 
 ## Start Jenkins Instance 
