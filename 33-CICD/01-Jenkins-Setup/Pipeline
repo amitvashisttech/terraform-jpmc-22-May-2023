@@ -1,0 +1,25 @@
+node {
+    
+    
+    stage('Git-CheckOut') {
+       git branch: 'main', url: 'https://github.com/amitvashisttech/terraform-jpmc-22-May-2023.git'
+    }
+    
+    def project_path = "33-CICD/02-Ansible/"
+    
+    dir(project_path ) { 
+        
+        stage('Getting Ready For Deploymemt') {
+           sh label: 'Jenkins', script: "echo '<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>' > ansible/templates/index.html"
+        }
+        
+        stage('Terrafrom Deployment') {
+           sh label: 'terraform', script: '/usr/local/bin/terraform  init'
+           sh label: 'terraform', script: '/usr/local/bin/terraform  apply -input=false -auto-approve'
+        }
+    }
+    
+    
+    
+    
+}
