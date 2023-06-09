@@ -1,8 +1,8 @@
 # Configure the AWS Provider
 provider "aws" {
   region = "us-west-2"
-  #access_key = "Xuxuxuxuxuxux"
-  #secret_key = "yayayyayaya" 
+  access_key = "XXXXXX"
+  secret_key = "XXXXXXX"
 }
 
 
@@ -13,6 +13,7 @@ resource "aws_instance" "web" {
     volume_type   = "gp2"
   }
   tags = {
-    Name = "HelloWorld"
+    Name = "HelloWorld-IJ"
   }
 }
+
