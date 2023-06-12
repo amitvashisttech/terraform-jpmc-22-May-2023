@@ -1,6 +1,8 @@
 # Configure the AWS Provider
 provider "aws" {
   region = "us-west-2"
+  access_key = "XXXXXX"
+  secret_key = "XXXXXXX"
 }
 
 
@@ -12,6 +14,7 @@ resource "aws_instance" "web" {
   }
   tags = {
     Name = "HelloWorld-IJ"
+    Environment = "Dev"
   }
 }
 

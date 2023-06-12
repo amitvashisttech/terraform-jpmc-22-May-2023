@@ -1,0 +1,50 @@
+import "tfplan/v2"
+
+# Rule: Instance Type Restriction
+# Only allow t2.micro and t3.micro instance types
+# Change the allowed_types variable to include additional allowed instance types
+allowed_types = ["t2.micro", "t3.micro"]
+
+# Rule: Ensure Instances Use Tags
+# Require instances to have "Name" and "Environment" tags
+required_tags = ["Name", "Environment"]
+
+# Rule: Ensure Instances Are Encrypted
+# Require instances to have encrypted root volumes
+#require_encryption = true
+
+# Rule: Ensure Instances Use Approved AMIs
+# Only allow instances using specific AMI IDs
+allowed_amis = ["ami-04e914639d0cca79a", "ami-0123456789abcdef1"]
+
+# Main policy
+main = rule {
+    all tfplan.aws_instance as _, instances {
+        all instances as _, instance {
+            # Check instance type
+            #not empty(instance.ami) and
+            not contains(allowed_types, instance.instance_type)
+
+            # Check instance tags
+            and not all required_tags as tag {
+                contains(instance.tags, tag)
+            }
+
+            # Check encryption
+            #and not instance.ebs_block_device as _, block_device {
+            #    not block_device.encrypted == require_encryption
+            #}
+
+            # Check AMI ID
+            and not contains(allowed_amis, instance.ami)
+        }
+    }
+}
+
+# Set enforcement level and message
+enforcement {
+    main
+} else {
+    message = "Violation: AWS instance does not comply with policy requirements"
+}
+
