@@ -1,0 +1,10 @@
+{
+	"records": [
+		{
+			"key": "check-ec2-environment-tag",
+			"source": "./check-ec2-environment-tag.sentinel",
+			"sourceSum": "",
+			"dest": "/root/terraform-jpmc-22-May-2023/37-Sentinel/Exp1/check-ec2-environment-tag.sentinel"
+		}
+	]
+}
